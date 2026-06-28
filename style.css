@@ -1,0 +1,351 @@
+/* ==================================================================
+   Cartly / BigBasket — Premium Orange Theme & Custom Animations
+   ================================================================== */
+
+:root {
+  --primary: #FF6B00; /* Vibrant Orange */
+  --primary-hover: #E05E00;
+  --primary-light: #FFF0E6;
+  --primary-glow: rgba(255, 107, 0, 0.15);
+  --dark: #121824; /* Deep Slate/Navy Blue (Premium Dark feel) */
+  --ink: #1E293B; /* Slate 800 */
+  --paper: #F8FAFC; /* Slate 50 */
+  --success: #10B981; /* Emerald 500 */
+  --muted: #64748B; /* Slate 500 */
+  --border: #E2E8F0; /* Slate 200 */
+  --card-bg: #FFFFFF;
+}
+
+/* Dark mode configurations */
+.dark-theme {
+  --ink: #F1F5F9;
+  --paper: #0F172A;
+  --muted: #94A3B8;
+  --border: #334155;
+  --card-bg: #1E293B;
+  --primary-light: #2D231E;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+::selection {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+/* Custom focus styles for accessibility */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* ---- Glassmorphism Header ---- */
+.glass-header {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+.dark-theme .glass-header {
+  background: rgba(15, 23, 42, 0.8);
+}
+
+/* ---- Gradient text ---- */
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary) 0%, #FF9E00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ---- Product card upgrades ---- */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  padding: 1.25rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              box-shadow 0.3s ease, 
+              border-color 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--primary);
+  box-shadow: 0 20px 25px -5px rgba(255, 107, 0, 0.1), 0 10px 10px -5px rgba(255, 107, 0, 0.04);
+}
+
+.product-image-container {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  border-radius: 0.85rem;
+  overflow: hidden;
+  background: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.product-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-image-container img {
+  transform: scale(1.1);
+}
+
+/* Category Pills & Badges */
+.category-pill {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.category-pill.active {
+  background-color: var(--primary);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
+}
+
+/* ---- Stepper control ---- */
+.qty-stepper {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.qty-stepper button {
+  width: 2.2rem;
+  height: 2.2rem;
+  display: grid;
+  place-items: center;
+  font-size: 1rem;
+  font-weight: 600;
+  background: var(--paper);
+  color: var(--ink);
+  transition: background 0.2s, color 0.2s;
+}
+
+.qty-stepper button:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.qty-stepper span {
+  width: 2.2rem;
+  text-align: center;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* ---- Modern Receipt Design ---- */
+.receipt {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  position: relative;
+}
+
+.zigzag {
+  height: 12px;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 4px,
+    var(--paper) 4px,
+    var(--paper) 8px
+  );
+  -webkit-mask: repeating-linear-gradient(-45deg, #000 0 6px, transparent 0 12px);
+  mask: repeating-linear-gradient(-45deg, #000 0 6px, transparent 0 12px);
+  background-color: var(--card-bg);
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+/* ---- Modals Overlay ---- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(8px);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  padding: 1rem;
+}
+
+.modal-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 1.5rem;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  transform: scale(0.95) translateY(10px);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-overlay.show .modal-content {
+  transform: scale(1) translateY(0);
+}
+
+/* ---- Custom Checkbox styling for Checkout modal ---- */
+.checkbox-orange {
+  accent-color: var(--primary);
+}
+
+/* ---- Badge Bounce Animation ---- */
+@keyframes badge-bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+.badge-bounce {
+  animation: badge-bounce 0.4s ease-out;
+}
+
+/* ---- Checkmark Success Animation ---- */
+.checkmark-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 2;
+  stroke: var(--success);
+  stroke-miterlimit: 10;
+  box-shadow: inset 0px 0px 0px var(--success);
+  animation: fill-success .4s ease-in-out .4s forwards, scale-up .3s ease-in-out .9s both;
+  margin: 0 auto 1.5rem;
+}
+
+.checkmark-check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke-dash .3s cubic-bezier(0.65, 0, 0.45, 1) .8s forwards;
+}
+
+@keyframes stroke-dash {
+  100% { stroke-dashoffset: 0; }
+}
+@keyframes fill-success {
+  100% { box-shadow: inset 0px 0px 0px 40px rgba(16, 185, 129, 0.1); }
+}
+@keyframes scale-up {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+/* ---- Toast Notification ---- */
+.toast {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  background: var(--ink);
+  color: var(--card-bg);
+  border: 1px solid var(--border);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.85rem 1.4rem;
+  border-radius: 1rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- Scrollbar Customization ---- */
+.cart-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.cart-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.cart-scroll::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+}
+.cart-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+/* Responsive tweaks */
+@media (max-width: 1023px) {
+  #cartPanel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 40;
+    background: var(--card-bg);
+    border-top: 1px solid var(--border);
+    padding: 1rem;
+    box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.08);
+    display: none; /* Controlled dynamically if desired, or standard flow */
+  }
+  
+  /* Make standard flow in mobile, but we can make it toggleable or nice */
+  body.cart-open #cartPanel {
+    display: block;
+  }
+}
+
+/* Accessibility Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .product-card,
+  .toast,
+  .qty-stepper button,
+  .modal-overlay,
+  .modal-content,
+  .product-image-container img {
+    transition: none !important;
+    animation: none !important;
+  }
+  .product-card:hover {
+    transform: none;
+  }
+}

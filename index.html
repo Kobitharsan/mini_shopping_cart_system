@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BigBasket — Premium Gadgets Store</title>
+
+  <!-- Fonts: Space Grotesk (display), Inter (body), IBM Plex Mono (numbers/receipt) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: "#FF6B00",
+            brandHover: "#E05E00",
+            ink: "var(--ink)",
+            paper: "var(--paper)",
+            cardBg: "var(--card-bg)",
+            borderc: "var(--border)",
+            muted: "var(--muted)",
+            success: "var(--success)"
+          },
+          fontFamily: {
+            display: ["Space Grotesk", "sans-serif"],
+            body: ["Inter", "sans-serif"],
+            mono: ["IBM Plex Mono", "monospace"]
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-paper text-ink font-body antialiased min-h-screen flex flex-col">
+
+  <!-- ===== Header ===== -->
+  <header class="sticky top-0 z-30 glass-header border-b border-borderc transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
+      <a href="#top" class="flex items-center gap-2.5 shrink-0 group">
+        <div class="grid place-items-center w-10 h-10 rounded-xl bg-gradient-to-tr from-brand to-orange-400 text-white text-xl shadow-md shadow-brand/20 group-hover:scale-105 transition-transform duration-200">
+          🛒
+        </div>
+        <span class="font-display font-bold text-2xl tracking-tight bg-gradient-to-r from-brand to-orange-500 bg-clip-text text-transparent">BigBasket</span>
+      </a>
+
+      <!-- Search Desktop -->
+      <div class="hidden md:flex flex-1 max-w-md relative">
+        <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+          🔍
+        </span>
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Search gadgets, accessories..."
+          class="w-full rounded-full border border-borderc bg-cardBg/50 pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition duration-200"
+        />
+      </div>
+
+      <!-- Quick Controls -->
+      <div class="flex items-center gap-3">
+        <!-- Theme toggle -->
+        <button 
+          id="themeToggle"
+          aria-label="Toggle Theme"
+          class="w-10 h-10 rounded-full border border-borderc bg-cardBg/50 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-center text-lg transition duration-200"
+        >
+          🌙
+        </button>
+
+        <!-- Cart quick-link -->
+        <a href="#cartPanel" class="relative flex items-center gap-2 rounded-full bg-brand text-white px-4 py-2.5 text-sm font-semibold hover:bg-brandHover hover:shadow-lg hover:shadow-brand/20 transition duration-200">
+          <span>Cart</span>
+          <span id="cartBadge" class="grid place-items-center min-w-[1.4rem] h-[1.4rem] px-1.5 rounded-full bg-slate-900 text-white text-xs font-mono leading-none">0</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Mobile search -->
+    <div class="md:hidden px-4 pb-4">
+      <div class="relative w-full">
+        <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+          🔍
+        </span>
+        <input
+          id="searchInputMobile"
+          type="text"
+          placeholder="Search products..."
+          class="w-full rounded-full border border-borderc bg-cardBg/50 pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition duration-200"
+        />
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Hero Banner Section ===== -->
+  <section class="max-w-7xl mx-auto w-full px-4 sm:px-6 mt-6">
+    <div class="relative rounded-3xl overflow-hidden bg-slate-900 text-white shadow-xl min-h-[220px] sm:min-h-[280px] flex items-center">
+      <!-- Background pattern/image generated via AI -->
+      <img src="assets/banner.png" alt="BigBasket Banner" class="absolute inset-0 w-full h-full object-cover opacity-60">
+      
+      <!-- Overlay Gradient -->
+      <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/80 to-transparent"></div>
+      
+      <div class="relative z-10 max-w-xl px-6 sm:px-12 py-10">
+        <span class="text-xs font-bold tracking-widest uppercase text-brand bg-brand/10 border border-brand/20 rounded-full px-3 py-1 mb-4 inline-block">
+          New Arrivals 2026
+        </span>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl leading-tight mb-3">
+          Level Up Your <span class="text-brand">Tech Setup</span>
+        </h2>
+        <p class="text-sm text-slate-300 max-w-sm">
+          Discover a curated catalog of premium accessories, high-performance gears, and smart office solutions.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Main content ===== -->
+  <main id="top" class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 py-8 grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8 items-start">
+
+    <!-- Product listing -->
+    <section aria-labelledby="productHeading" class="w-full">
+      
+      <!-- Controls Panel (Filter + Sort) -->
+      <div class="bg-cardBg border border-borderc rounded-2xl p-4 mb-6 shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 transition-colors duration-300">
+        <!-- Categories -->
+        <div id="categoryList" class="flex flex-wrap gap-2">
+          <!-- Filled dynamically by script.js -->
+        </div>
+
+        <!-- Sorting -->
+        <div class="flex items-center gap-2 shrink-0">
+          <label for="sortSelect" class="text-xs font-bold uppercase tracking-wider text-muted">Sort By:</label>
+          <select 
+            id="sortSelect" 
+            class="rounded-xl border border-borderc bg-cardBg text-xs font-semibold px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition duration-200"
+          >
+            <option value="default">Featured</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="name-asc">Alphabetical: A-Z</option>
+            <option value="name-desc">Alphabetical: Z-A</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="flex items-baseline justify-between mb-5">
+        <h1 id="productHeading" class="font-display text-2xl font-bold tracking-tight">Catalog</h1>
+        <p class="text-xs font-semibold text-muted" id="resultCount">Loading items...</p>
+      </div>
+
+      <!-- Catalog Grid -->
+      <div
+        id="productGrid"
+        class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6"
+      >
+        <!-- Injected dynamically by script.js -->
+      </div>
+
+      <!-- No matching results state -->
+      <div id="noResults" class="hidden text-center py-20 bg-cardBg border border-borderc rounded-2xl transition-colors duration-300">
+        <div class="text-5xl mb-4">🔍</div>
+        <h3 class="text-lg font-bold mb-1">No products match your search</h3>
+        <p class="text-sm text-muted">Try adjusting your filters or search terms.</p>
+      </div>
+    </section>
+
+    <!-- Cart Panel -->
+    <aside id="cartPanel" class="lg:sticky lg:top-28 w-full">
+      <div class="receipt rounded-2xl shadow-md overflow-hidden transition-colors duration-300">
+
+        <!-- Receipt Header -->
+        <div class="px-5 pt-5 pb-3.5 flex items-center justify-between border-b border-dashed border-borderc">
+          <div class="flex items-center gap-2">
+            <span class="text-lg">📋</span>
+            <h2 class="font-display font-bold text-lg">Your Cart</h2>
+          </div>
+          <button
+            id="clearCartBtn"
+            class="text-xs font-semibold text-muted hover:text-brand transition duration-200 disabled:opacity-0 disabled:pointer-events-none"
+            disabled
+          >
+            Clear all
+          </button>
+        </div>
+
+        <!-- Cart items list -->
+        <div id="cartItems" class="cart-scroll px-5 py-3 flex flex-col divide-y divide-borderc max-h-[380px] overflow-y-auto hidden">
+          <!-- cart rows injected by script.js -->
+        </div>
+
+        <!-- Empty state -->
+        <div id="emptyCart" class="px-5 py-14 text-center text-muted">
+          <div class="text-4xl mb-3">🧺</div>
+          <h4 class="text-sm font-bold text-slate-800 dark:text-slate-200 mb-1">Your cart is empty</h4>
+          <p class="text-xs">Add products from the catalog to see them itemized here.</p>
+        </div>
+
+        <!-- Summary -->
+        <div id="cartSummary" class="px-5 py-4 border-t border-dashed border-borderc font-mono text-xs hidden">
+          <div class="flex justify-between py-1.5 text-muted">
+            <span>Subtotal</span>
+            <span id="subtotalValue">Rs 0.00</span>
+          </div>
+          <div class="flex justify-between py-1.5 text-muted">
+            <span>Tax (5%)</span>
+            <span id="taxValue">Rs 0.00</span>
+          </div>
+          <div class="flex justify-between pt-3 mt-2 border-t border-solid border-borderc font-bold text-slate-800 dark:text-white text-sm">
+            <span>Total Due</span>
+            <span id="totalValue">Rs 0.00</span>
+          </div>
+        </div>
+
+        <!-- Receipt zigzag border edge -->
+        <div class="zigzag" aria-hidden="true"></div>
+      </div>
+
+      <button
+        id="checkoutBtn"
+        class="w-full mt-4 rounded-2xl bg-brand text-white font-display font-bold py-3.5 hover:bg-brandHover hover:shadow-lg hover:shadow-brand/20 active:scale-[0.99] transition duration-200 disabled:opacity-40 disabled:pointer-events-none"
+        disabled
+      >
+        Proceed to Checkout
+      </button>
+    </aside>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="border-t border-borderc py-8 text-center text-xs text-muted mt-12 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>© 2026 BigBasket Gadgets. All rights reserved.</p>
+      <div class="flex gap-4">
+        <a href="#" class="hover:text-brand transition">Terms of Service</a>
+        <a href="#" class="hover:text-brand transition">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== Toast notification ===== -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- ===== Quick View Modal ===== -->
+  <div id="quickViewModal" class="modal-overlay" aria-modal="true" role="dialog"></div>
+
+  <!-- ===== Checkout Modal ===== -->
+  <div id="checkoutModal" class="modal-overlay" aria-modal="true" role="dialog"></div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
